@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ADVEYRA AI STUDIO</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="login" class="login-wrap">
+    <form id="loginForm" class="login-card">
+      <div class="brand-mark">A</div>
+      <p class="eyebrow">PRIVATE DEVELOPMENT WORKSPACE</p>
+      <h1>ADVEYRA AI STUDIO</h1>
+      <p class="muted">Sign in to your AI coding workspace.</p>
+      <label>Admin username<input id="username" autocomplete="username" required></label>
+      <label>Admin password<input id="password" type="password" autocomplete="current-password" required></label>
+      <button class="primary" type="submit">Sign in</button>
+      <p id="loginError" class="error"></p>
+    </form>
+  </div>
+
+  <div id="app" class="app hidden">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark small">A</span><strong>ADVEYRA <span>AI STUDIO</span></strong></div>
+      <div class="top-actions"><span id="status" class="status">Checking connection…</span><button id="aiSettingsBtn" class="secondary">AI Settings</button><button id="diagnosticsBtn" class="secondary">Diagnostics</button><button id="exportBtn" class="secondary">Export ZIP</button><button id="pushBtn" class="secondary">Push to GitHub</button><button id="logoutBtn" class="ghost">Log out</button></div>
+    </header>
+    <main>\n
+    <section class="welcome-dashboard" aria-labelledby="welcomeTitle">
+      <div class="welcome-copy">
+        <p class="eyebrow">YOUR PRIVATE AI DEVELOPMENT WORKSPACE</p>
+        <h1 id="welcomeTitle">Welcome to <span>ADVEYRA AI STUDIO</span></h1>
+        <p class="welcome-lead">Plan, build, edit and test websites, applications and CRM projects from one workspace — with an AI developer by your side.</p>
+        <div class="welcome-actions">
+          <button class="primary" type="button" id="startBuildingBtn">Start building ↓</button>
+          <button class="secondary" type="button" id="dashboardGuideBtn">How it works</button>
+        </div>
+        <div class="welcome-trust"><span><i></i> Private workspace</span><span>Gemini & OpenAI options</span><span>Project files stay in your workspace</span></div>
+      </div>
+      <div class="welcome-orbit" aria-hidden="true">
+        <div class="orbit-ring ring-one"></div><div class="orbit-ring ring-two"></div>
+        <div class="orbit-core"><b>A</b><small>AI STUDIO</small></div>
+        <span class="orbit-chip chip-code">{"</>"}</span><span class="orbit-chip chip-ai">✦ AI</span><span class="orbit-chip chip-web">WEB</span>
+      </div>
+      <div class="welcome-capabilities">
+        <article><span class="cap-icon">✦</span><div><h3>Build with AI</h3><p>Describe a feature in everyday Hindi or English. The assistant can inspect project files and help implement changes.</p></div></article>
+        <article><span class="cap-icon">⌘</span><div><h3>Work with your files</h3><p>Create, upload, edit and organise project files, then review the code in the built-in editor.</p></div></article>
+        <article><span class="cap-icon">▣</span><div><h3>Preview & test</h3><p>Check responsive layouts and send requests to your backend API using the API tester.</p></div></article>
+        <article><span class="cap-icon">⇧</span><div><h3>Save & deploy</h3><p>Export a ZIP or push changes to GitHub. A connected hosting service can deploy your repository.</p></div></article>
+      </div>
+      <div class="welcome-guide hidden" id="dashboardGuide">
+        <div><strong>1. Tell the assistant</strong><p>Explain what you want to build or change. Attach a screenshot or use voice input if helpful.</p></div>
+        <div><strong>2. Review the changes</strong><p>Inspect edited files, preview the frontend and test API endpoints. Keep backups before major changes.</p></div>
+        <div><strong>3. Save your work</strong><p>Export your project or push it to GitHub. Check deployment logs on your hosting provider.</p></div>
+      </div>
+      <p class="welcome-disclaimer">Note: AI features depend on your configured provider, model, API limits and credentials. Backend execution, database hosting, image generation and deployment require their respective integrations.</p>
+    </section>
+      <div class="layout">
+      <aside class="chat-panel panel">
+        <div class="panel-heading"><div><p class="eyebrow">AI DEVELOPER</p><h2>Agent Chat</h2></div><span class="online-dot"></span></div>
+        <div id="chatMessages" class="messages">
+          <div class="bubble assistant">Hi! I’m your ADVEYRA AI developer. You can describe your idea naturally in Hindi or English. I’ll inspect the workspace, ask only for essential missing details, plan the work, create or update files, and tell you what still needs external setup.</div>
+          <div class="starter-actions" id="starterActions">
+            <button type="button" data-prompt="Inspect my current project, explain its structure, identify issues, and suggest the next useful improvements. Do not change files yet.">Analyse my project</button>
+            <button type="button" data-prompt="Help me create a professional CRM app. First ask me the essential questions one by one, recommend sensible defaults, then build it in this workspace after I confirm the plan.">Build a CRM</button>
+            <button type="button" data-prompt="Inspect my current project and add a secure backend/API architecture with database integration guidance. Preserve all existing working features and ask before any destructive change.">Add backend</button>
+            <button type="button" data-prompt="Review my project for bugs, broken links, missing files and responsive UI problems. Fix only clearly safe issues and report what you changed.">Find and fix issues</button>
+          </div>
+        </div>
+        <form id="chatForm" class="composer">
+          <div id="attachmentPreview" class="attachment-preview"></div>
+          <textarea id="prompt" rows="3" placeholder="Describe a website, feature, code change, or upload a screenshot…"></textarea>
+          <div class="composer-tools"><label class="tiny muted">AI Provider <select id="chatProvider" class="voice-language"><option value="gemini">Google Gemini</option><option value="openai">OpenAI</option></select></label><span id="activeModelLabel" class="tiny muted">Select model in AI Settings</span></div>
+          <div class="composer-tools">
+            <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
+            <button id="attachImageBtn" class="ghost" type="button" title="Attach images">＋ Image</button>
+            <select id="voiceLanguage" class="voice-language" aria-label="Voice language"><option value="hi-IN">Hindi</option><option value="en-IN">English</option></select>
+            <button id="voiceBtn" class="ghost" type="button" title="Voice input">🎙 Voice</button>
+            <span id="voiceStatus" class="muted tiny"></span>
+          </div>
+          <div class="composer-footer"><span class="muted tiny">Text, image and voice instructions · Gemini API limits apply</span><button id="sendBtn" class="primary" type="submit">Send ↗</button></div>
+        </form>
+      </aside>
+      <section class="files-panel panel">
+        <div class="panel-heading"><div><p class="eyebrow">PROJECT WORKSPACE</p><h2>Files</h2></div><div class="file-actions"><button id="newFileBtn" class="ghost">New file</button><button id="newFolderBtn" class="ghost">New folder</button><button id="uploadFileBtn" class="ghost">Upload file</button><button id="importZipBtn" class="ghost">Import ZIP</button><button id="refreshFiles" class="ghost">Refresh</button><input id="uploadFileInput" type="file" hidden><input id="importZipInput" type="file" accept=".zip,application/zip" hidden></div></div>
+        <div class="bulk-tools"><label><input id="selectAllFiles" type="checkbox"> Select all</label><span id="selectedCount">0 selected</span><button id="downloadSelectedBtn" class="ghost" type="button" disabled>Download selected</button><button id="deleteSelectedBtn" class="ghost danger" type="button" disabled>Delete selected</button></div>
+        <div id="fileList" class="file-list"><p class="muted">Loading files…</p></div>
+        <div class="editor-head"><span id="currentFile">Select a file</span><div class="file-actions"><button id="renameFile" class="ghost" disabled>Rename</button><button id="deleteFile" class="ghost danger" disabled>Delete</button><button id="saveFile" class="secondary" disabled>Save file</button></div></div>
+        <textarea id="editor" class="editor" spellcheck="false" placeholder="Select a file to view or edit its contents…"></textarea>
+      </section>
+      <section class="preview-panel panel">
+        <div class="panel-heading"><div><p class="eyebrow">LOCAL PROJECT VIEW</p><h2>Preview</h2></div><button id="previewBtn" class="secondary">Preview HTML</button></div>
+        <div class="device-toolbar"><div class="device-buttons"><button class="device-btn active" data-device="desktop" type="button">Desktop</button><button class="device-btn" data-device="tablet" type="button">Tablet</button><button class="device-btn" data-device="mobile" type="button">Mobile</button></div><span id="deviceLabel" class="muted tiny">Desktop · responsive width</span><div class="zoom-tools"><button id="zoomOutBtn" class="ghost" type="button">−</button><button id="fitPreviewBtn" class="ghost" type="button">Fit</button><button id="zoomInBtn" class="ghost" type="button">＋</button><button id="fullscreenBtn" class="ghost" type="button">Fullscreen</button><button id="reloadPreviewBtn" class="ghost" type="button">↻ Reload</button></div></div>
+        <div class="preview-note">Preview saved frontend files. Switch device modes and use Fit or Fullscreen to inspect the complete viewport. Backend apps need a separately configured runtime.</div>
+        <div id="previewStage" class="preview-stage"><button id="exitFullscreenBtn" class="exit-fullscreen" type="button">↙ Back to Normal View</button><iframe id="preview" title="Project preview" sandbox="allow-scripts allow-forms allow-modals allow-same-origin"></iframe></div>
+        <details class="api-lab">
+          <summary>Backend API Tester <span class="muted tiny">Test your CRM / app API endpoints</span></summary>
+          <div class="api-controls"><select id="apiMethod"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select><input id="apiUrl" type="url" placeholder="https://your-backend.com/api/health"><button id="apiSendBtn" class="secondary" type="button">Send request</button></div>
+          <label>Headers (JSON) <textarea id="apiHeaders" rows="2" spellcheck="false">{"Content-Type":"application/json"}</textarea></label>
+          <label>Request body (JSON) <textarea id="apiBody" rows="3" spellcheck="false">{}</textarea></label>
+          <div id="apiResult" class="api-result">Response will appear here. Cross-origin APIs must allow requests from this site (CORS).</div>
+        </details>
+        <div class="deploy-note"><strong>Deployment:</strong> Push files to GitHub; Render can auto-deploy from the connected repository. Backend projects can be prepared and inspected here; live server execution and database hosting must be configured through a connected hosting/database provider.</div>
+      </section>
+    </main>
+    <div id="aiSettingsModal" class="settings-backdrop hidden">
+      <section class="settings-card">
+        <div class="settings-head"><div><p class="eyebrow">MODEL & CREDENTIALS</p><h2>AI Provider Settings</h2></div><button id="closeAiSettings" class="ghost" type="button">✕</button></div>
+        <p class="muted tiny">Keys are sent only to this authenticated server and encrypted before local storage. Never share them in chat.</p>
+        <label>Default provider<select id="defaultProvider"><option value="gemini">Google Gemini</option><option value="openai">OpenAI</option></select></label>
+        <div class="settings-grid">
+          <div><h3>Google Gemini</h3><label>API Key<input id="geminiKeyInput" type="password" placeholder="Paste Gemini API key (blank keeps saved key)"></label>
+            <label>Model<select id="geminiModelInput"><option value="gemini-3.1-flash-lite">Gemini 3.1 Flash-Lite · free tier available</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite · free tier available</option><option value="gemini-2.5-flash">Gemini 2.5 Flash · free tier available</option><option value="gemini-4-argon">Gemini 4 Argon · paid</option></select></label>
+            <button id="testGeminiBtn" class="ghost" type="button">Test Gemini</button><span id="geminiKeyStatus" class="tiny muted"></span>
+          </div>
+          <div><h3>OpenAI</h3><label>API Key<input id="openaiKeyInput" type="password" placeholder="Paste OpenAI API key (blank keeps saved key)"></label>
+            <label>Model<select id="openaiModelInput"><option value="gpt-5.3-codex">GPT-5.3 Codex · coding</option><option value="chat-latest">Chat latest · paid</option></select></label>
+            <button id="testOpenAIBtn" class="ghost" type="button">Test OpenAI</button><span id="openaiKeyStatus" class="tiny muted"></span>
+          </div>
+        </div>
+        <label>Project environment variables (JSON key/value)<textarea id="projectVariablesInput" rows="5" spellcheck="false" placeholder='{"DATABASE_URL":"...","SUPABASE_URL":"..."}'></textarea></label>
+        <p class="tiny muted">Values are encrypted server-side and never displayed again after saving. This stores configuration securely; it does not automatically start a backend runtime or expose secrets to browser code.</p>
+        <p class="tiny muted">OpenAI API models are usage-billed; ChatGPT subscription does not include API usage. Gemini free-tier availability and quotas depend on model, region and account. Gemini 4 Argon is paid-only. Check the provider pricing pages before use.</p>
+        <button id="saveAiSettings" class="primary" type="button">Save AI Settings</button><span id="settingsSaveStatus" class="tiny muted"></span>
+      </section>
+    </div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
